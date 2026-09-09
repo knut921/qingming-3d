@@ -117,7 +117,7 @@ try {
     fail('瀏覽器暫停了 3D 顯示。請重新載入，或先關閉其他佔用較多資源的分頁。');
   });
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-  loader.load(`${import.meta.env.BASE_URL}models/qingming.glb?v=20260909-visitors-1`, (gltf) => {
+  loader.load(`${import.meta.env.BASE_URL}models/qingming.glb?v=20260909-visitors-2`, (gltf) => {
     root = gltf.scene;
     root.traverse((object) => {
       if (object.isMesh) {
@@ -148,13 +148,17 @@ try {
     updateTime();
     // Read-only diagnostics make deployment and motion checks reproducible.
     window.qingmingViewer = Object.freeze({ snapshot() {
+      root.updateMatrixWorld(true);
       let skins = 0, bones = 0, sampleBone = null;
       const visitors = [];
       root.traverse((o) => {
         if (!o.isSkinnedMesh || !o.userData.visitor_asset) return;
         const pose = (name) => o.skeleton.bones.find(b => b.name.startsWith(name))?.quaternion.toArray();
+        o.computeBoundingBox();
+        const bounds = o.boundingBox.clone().applyMatrix4(o.matrixWorld);
         visitors.push({ asset: o.userData.visitor_asset, bones: o.skeleton.bones.length,
-          head: pose('head'), hand: pose(o.userData.visitor_asset === 'pink' ? 'lowerL' : 'lowerR') });
+          bodyScale: o.userData.relative_body_scale, height: bounds.max.y - bounds.min.y,
+          head: pose('head'), hand: pose(o.userData.visitor_asset === 'purple' ? 'lowerR' : 'lowerL') });
       });
       root.traverse((o) => { if (o.isSkinnedMesh) skins++; if (o.isBone) { bones++; if (!sampleBone && o.name.includes('thigh')) sampleBone = o.quaternion.toArray(); } });
       return { ready, playing, time: animationTime, duration, skins, bones, sampleBone, visitors, camera: camera.position.toArray(), target: controls.target.toArray(), drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, clips: gltf.animations.length };

@@ -15,9 +15,12 @@ try {
   const snap = () => page.evaluate(() => window.qingmingViewer.snapshot());
   await page.getByRole('button', { name: '暫停動畫', exact: true }).click();
   let state = await snap();
-  assert.equal(state.skins, 98); assert.equal(state.clips, 1); assert.equal(state.duration, 30);
-  assert.deepEqual(state.visitors.map(v=>v.asset).sort(), ['pink','purple']);
+  assert.equal(state.skins, 99); assert.equal(state.clips, 1); assert.equal(state.duration, 30);
+  assert.deepEqual(state.visitors.map(v=>v.asset).sort(), ['coral','pink','purple']);
   assert.ok(state.visitors.every(v=>v.bones===15 && v.head?.length===4 && v.hand?.length===4));
+  const youngest = state.visitors.find(v=>v.asset==='coral');
+  assert.equal(youngest.bodyScale,.66);
+  assert.ok(state.visitors.filter(v=>v.asset!=='coral').every(v=>youngest.height < v.height*.80));
   const pausedTime = state.time;
   await page.waitForTimeout(350);
   assert.equal((await snap()).time, pausedTime);
