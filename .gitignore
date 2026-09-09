@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+test-results/
+*.log
+*.blend
+*.blend1
+public/models/*-raw.glb
+.env*
+.cache/
