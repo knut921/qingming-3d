@@ -2,6 +2,8 @@
 
 可以旋轉、縮放、平移視角的清明上河圖意境 3D 網站，包含 96 位人物與 30 秒場景動畫。訪客使用一般瀏覽器即可觀看，不需要安裝 Blender。
 
+**線上體驗：[虹橋・入畫](https://knut921.github.io/qingming-3d/)**
+
 ![虹橋立體場景](public/poster.png)
 
 ## 操作
@@ -27,14 +29,11 @@ npm ci
 npm run dev
 ```
 
-## 發佈到 GitHub Pages
+## GitHub Pages 發佈設定
 
-本專案為 `knut921/qingming-3d` 準備。啟用 Pages 後預期網址為 `https://knut921.github.io/qingming-3d/`；是否已上線，請以 GitHub Pages 顯示的狀態為準。
+本專案已發佈至 [knut921/qingming-3d](https://github.com/knut921/qingming-3d)，公開網址為 **https://knut921.github.io/qingming-3d/**。
 
-1. 在 GitHub 帳號 `knut921` 建立公開儲存庫 `qingming-3d`，上傳本資料夾已納入 Git 的檔案。
-2. 在儲存庫 **Settings → Pages** 選 **Deploy from a branch**。
-3. 分支選 **main**，資料夾選 **/docs**，按 **Save**。
-4. 等候 GitHub 完成發佈，再開啟 Pages 提供的公開網址。
+儲存庫 **Settings → Pages** 已設定為 **Deploy from a branch → main → /docs**。不必重新建立儲存庫或再次啟用 Pages；之後更新並推送 `main` 分支即可。
 
 `docs/` 已經是可直接發佈的完整網站，包含網頁、模型、解碼器與影片。JavaScript 依賴已打包，不需要伺服器後端。所有資產都使用相對路徑，適合 GitHub Pages 的專案子路徑。
 
