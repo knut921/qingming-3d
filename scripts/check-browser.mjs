@@ -15,7 +15,9 @@ try {
   const snap = () => page.evaluate(() => window.qingmingViewer.snapshot());
   await page.getByRole('button', { name: '暫停動畫', exact: true }).click();
   let state = await snap();
-  assert.equal(state.skins, 96); assert.equal(state.clips, 1); assert.equal(state.duration, 30);
+  assert.equal(state.skins, 98); assert.equal(state.clips, 1); assert.equal(state.duration, 30);
+  assert.deepEqual(state.visitors.map(v=>v.asset).sort(), ['pink','purple']);
+  assert.ok(state.visitors.every(v=>v.bones===15 && v.head?.length===4 && v.hand?.length===4));
   const pausedTime = state.time;
   await page.waitForTimeout(350);
   assert.equal((await snap()).time, pausedTime);
@@ -27,6 +29,11 @@ try {
   await page.locator('#scrubber').evaluate(el => { el.value='12.5'; el.dispatchEvent(new Event('input', { bubbles:true })); });
   const afterSeek = await snap();
   assert.equal(afterSeek.time, 12.5); assert.notDeepEqual(afterSeek.sampleBone, beforeSeek.sampleBone);
+  for (const visitor of afterSeek.visitors) {
+    const before = beforeSeek.visitors.find(v=>v.asset===visitor.asset);
+    assert.notDeepEqual(visitor.head, before.head);
+    assert.notDeepEqual(visitor.hand, before.hand);
+  }
   await page.getByRole('button', { name: '放大', exact: true }).click();
   state = await snap();
   assert.ok(distance(state.camera,state.target) < distance(afterSeek.camera,afterSeek.target)*.9);

@@ -1,6 +1,6 @@
 # 虹橋・入畫
 
-可以旋轉、縮放、平移視角的清明上河圖意境 3D 網站，包含 96 位人物與 30 秒場景動畫。訪客使用一般瀏覽器即可觀看，不需要安裝 Blender。
+可以旋轉、縮放、平移視角的清明上河圖意境 3D 網站，包含 98 位人物與 30 秒場景動畫。訪客使用一般瀏覽器即可觀看，不需要安裝 Blender。
 
 **線上體驗：[虹橋・入畫](https://knut921.github.io/qingming-3d/)**
 
@@ -50,8 +50,9 @@ git push
 
 ## 模型與效能
 
-- `public/models/qingming.glb`：約 6.4 MB，Meshopt 壓縮，96 個人物骨架、1 組完整 30 秒場景動畫。
-- `public/tour.mp4`：原先製作的 30 秒影片，可用作觀看替代方案。
+- `public/models/qingming.glb`：約 6.6 MB，Meshopt 壓縮，98 個人物骨架、1 組完整 30 秒場景動畫。
+- 新增兩位依服裝與髮型參考製作的微縮訪客，藏在橋上市集；各有 15 根骨骼，以及獨立的張望、手勢、眨眼與站姿動畫。外觀為風格化幾何建模。
+- `public/tour.mp4`：原先製作的 30 秒、96 人版本影片；新增訪客請在互動場景中尋找。
 - Blender 程序材質轉為網頁頂點色，減少材質切換；網頁燈光與離線影片略有差異。
 - `.blend`、720 格渲染 PNG、原始未壓縮 GLB、Node 套件與快取均不納入網站 Git 儲存庫。
 - 公開網站會讓訪客取得載入的 3D 模型，頁面也提供 GLB 下載。
@@ -60,7 +61,7 @@ git push
 
 ## 驗證
 
-已在 Chrome 測試桌面 1440 × 960、手機 390 × 844、播放與暫停、時間拖曳、骨架姿勢變化、旋轉、平移、縮放、預設視角、下載與減少動態效果。可執行 `npm run test:browser` 重跑；預設測試本機連接埠 4173，可用 `VIEWER_URL` 指定其他網址。
+已在 Chrome 測試桌面 1440 × 960、手機 390 × 844、播放與暫停、時間拖曳、骨架姿勢變化、兩位新增訪客的載入與獨立頭部／手臂動畫、旋轉、平移、縮放、預設視角、下載與減少動態效果。可執行 `npm run test:browser` 重跑；預設測試本機連接埠 4173，可用 `VIEWER_URL` 指定其他網址。
 
 GLB 結構驗證沒有錯誤；驗證器對 Meshopt 延伸支援有限，並會對骨架位於父節點下提出一般警告，實際瀏覽器的模型與動作已另外檢查。
 
@@ -69,4 +70,4 @@ GLB 結構驗證沒有錯誤；驗證器對 Meshopt 延伸支援有限，並會�
 - [Three.js GLTFLoader](https://threejs.org/docs/pages/GLTFLoader.html)
 - [GitHub Pages 發佈來源設定](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 
-Three.js 及 Meshopt 的第三方授權見 `THIRD_PARTY_NOTICES.md`。模型与動畫由本專案程式建立；此儲存庫未指定額外的再授權條款。
+Three.js 及 Meshopt 的第三方授權見 `THIRD_PARTY_NOTICES.md`。模型與動畫由本專案程式建立；此儲存庫未指定額外的再授權條款。
